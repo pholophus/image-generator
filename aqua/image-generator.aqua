@@ -1,0 +1,16 @@
+import "@fluencelabs/aqua-lib/builtin.aqua" 
+
+const PEER ?= "12D3KooWBNQ9SsBSBE9TD5nzFVF6Y8XmkfqGi8aAD8MedeQh4dDb"
+const RELAY ?= "12D3KooWFEwNWcHqi9rtsmDhsYcDbRUCDXH84RC4FW6UfsFWaoHi"
+
+service ImageGenerator("imageGenerator"):                    
+    readTokenURI(tokenAddress: string, tokenId: i16) -> string
+    readMetadata(tokenURI: string) -> string
+    mergedSpriteImages(metadata: string) -> string
+
+func testingNft(tokenAddress: string, tokenId: i16) -> string:
+    on PEER via RELAY:
+        res <- ImageGenerator.readTokenURI(tokenAddress, tokenId)
+        <- res                     
+
+
